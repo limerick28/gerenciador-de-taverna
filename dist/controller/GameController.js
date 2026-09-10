@@ -1,34 +1,26 @@
-import { Taverna } from './../model/Taverna';
-import { Mainscreen } from "../view/MainScreen";
-
-export class GameController{
-    private taverna: Taverna;
-    private view: Mainscreen;
-    private jogoRodando: boolean;
-
-    constructor(taverna: Taverna, view: Mainscreen) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.GameController = void 0;
+class GameController {
+    constructor(taverna, view) {
         this.taverna = taverna;
         this.view = view;
         this.jogoRodando = true;
     }
-
-    public iniciar(): void{
+    iniciar() {
         this.view.mostrarMensagem(`As portas da ${this.taverna.nomeTaverna} estão abertas!`);
-
         while (this.jogoRodando && this.taverna.estaAberta()) {
             this.view.mostrarStatus(this.taverna);
             this.view.mostrarMenu();
-
             const acao = this.view.pedirAcao();
             this.processarAcao(acao);
         }
-        if(this.taverna.vida < 0 ){
-            this.view.mostrarMensagem("o teto caiuu!")
+        if (this.taverna.vida < 0) {
+            this.view.mostrarMensagem("o teto caiuu!");
         }
         this.view.mostrarMensagem("Fim de expediente. A taverna fechou!");
-    }    
-
-    private processarAcao(acao: string): void {
+    }
+    processarAcao(acao) {
         switch (acao) {
             case '1':
                 this.view.mostrarMensagem("Opção 1 selecionada: Servir cliente (desenvolvendo ainda).");
@@ -53,7 +45,5 @@ export class GameController{
                 break;
         }
     }
-
-
-    
 }
+exports.GameController = GameController;

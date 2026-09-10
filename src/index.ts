@@ -2,10 +2,10 @@ import { Mainscreen } from './view/MainScreen';
 import { Taverna } from './model/Taverna';
 import { GameController } from './controller/GameController';
 
-// 1. Inicia a interface visual
+// 1. Inicia a interface visual o mainscreeen
 const view = new Mainscreen();
 
-// 2. Coleta os dados de configuração iniciais
+// 2. Cadastra as configuração iniciais...
 const nomeEscolhido = view.pedirNomeTaverna();
 
 // 3. Constrói o estado do jogo (Model)
