@@ -37,7 +37,10 @@ export abstract class Heroi{
         }
         return false; // Calote
     }
-
+    public ganharDinheiro(valor: number): void {
+        this.ouro += valor;
+        if (this.ouro < 0) this.ouro = 0;
+    }
     public abstract reagirABriga(taverna: Taverna): void; //Todo herói DEVE saber reagir a uma briga, 
     // mas CADA UM faz isso do seu jeito assim estou usando o polimorfismo
 }

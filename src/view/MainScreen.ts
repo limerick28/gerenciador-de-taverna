@@ -36,4 +36,12 @@ export class Mainscreen{
     public mostrarMensagem(mensagem: string): void {
         console.log(`\n> ${mensagem}`);
     }
+
+    public mostrarlogsDoTurno(eventos: string[]): void {
+        if (eventos.length === 0) 
+        console.log("\n📜 O que aconteceu neste turno:");
+        for (let evento of eventos) {
+            console.log(` - ${evento}`);
+        }
+    }
 }

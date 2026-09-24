@@ -3,53 +3,59 @@ import { Mainscreen } from "../view/MainScreen";
 
 export class GameController{
     private taverna: Taverna;
-    private view: Mainscreen;
+    private screen: Mainscreen;
     private jogoRodando: boolean;
 
-    constructor(taverna: Taverna, view: Mainscreen) {
+    constructor(taverna: Taverna, screen: Mainscreen) {
         this.taverna = taverna;
-        this.view = view;
+        this.screen = screen;
         this.jogoRodando = true;
     }
 
     public iniciar(): void{
-        this.view.mostrarMensagem(`As portas da ${this.taverna.nomeTaverna} estão abertas!`);
+        this.screen.mostrarMensagem(`As portas da ${this.taverna.nomeTaverna} estão abertas!`);
 
         while (this.jogoRodando && this.taverna.estaAberta()) {
-            this.view.mostrarStatus(this.taverna);
-            this.view.mostrarMenu();
+            this.screen.mostrarStatus(this.taverna);
 
-            const acao = this.view.pedirAcao();
+            const fofocaDoTurno = this.taverna.lerELimparLog();
+            this.screen.mostrarlogsDoTurno(fofocaDoTurno);
+
+            this.screen.mostrarMenu();
+            const acao = this.screen.pedirAcao();
             this.processarAcao(acao);
         }
+        
         if(this.taverna.vida < 0 ){
-            this.view.mostrarMensagem("o teto caiuu!")
+            this.screen.mostrarMensagem("o teto caiuu!")
         }
-        this.view.mostrarMensagem("Fim de expediente. A taverna fechou!");
-    }    
+        this.screen.mostrarMensagem("Fim de expediente. A taverna fechou!");
+    }  
+    
+    
 
     private processarAcao(acao: string): void {
         switch (acao) {
             case '1':
-                this.view.mostrarMensagem("Opção 1 selecionada: Servir cliente (desenvolvendo ainda).");
+                this.screen.mostrarMensagem("Opção 1 selecionada: Servir cliente (desenvolvendo ainda).");
                 break;
             case '2':
-                this.view.mostrarMensagem("Opção 2 selecionada: Expulsar cliente (desenvolvendo ainda).");
+                this.screen.mostrarMensagem("Opção 2 selecionada: Expulsar cliente (desenvolvendo ainda).");
                 break;
             case '3':
                 this.taverna.alterarCaos(-15);
-                this.view.mostrarMensagem("Você limpou o chão e acalmou os ânimos. O ambiente respirou.");
+                this.screen.mostrarMensagem("Você limpou o chão e acalmou os ânimos. O ambiente respirou.");
                 this.taverna.passarTurno(); // Gasta o turno
                 break;
             case '4':
-                this.view.mostrarMensagem("Você encostou no balcão e apenas observou o tempo passar...");
+                this.screen.mostrarMensagem("Você encostou no balcão e apenas observou o tempo passar...");
                 this.taverna.passarTurno(); // Gasta o turno
                 break;
             case '0':
                 this.jogoRodando = false;
                 break;
             default:
-                this.view.mostrarMensagem("Ação inválida! Digite um número do menu.");
+                this.screen.mostrarMensagem("Ação inválida! Digite um número do menu.");
                 break;
         }
     }
