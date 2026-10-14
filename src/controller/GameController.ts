@@ -13,7 +13,7 @@ export class GameController{
     }
 
     public iniciar(): void{
-        this.screen.mostrarMensagem(`As portas da ${this.taverna.nomeTaverna} estão abertas!`);
+        this.screen.mostrarMensagem(`As portas da ${this.taverna.getNomeTaverna()} estão abertas!`);
 
         while (this.jogoRodando && this.taverna.estaAberta()) {
             this.screen.mostrarStatus(this.taverna);
@@ -26,13 +26,13 @@ export class GameController{
             this.processarAcao(acao);
         }
         
-        if(this.taverna.vida < 0 ){
+        if(this.taverna.getVida() < 0 ){
             this.screen.mostrarMensagem("o teto caiuu!")
         }
         this.screen.mostrarMensagem("Fim de expediente. A taverna fechou!");
     }  
     
-    
+//lembrar de fazer enum nos processamentos de ações!!!!
 
     private processarAcao(acao: string): void {
         switch (acao) {
@@ -57,6 +57,22 @@ export class GameController{
             default:
                 this.screen.mostrarMensagem("Ação inválida! Digite um número do menu.");
                 break;
+        }
+
+    }
+    public finalizarTurno(): void {
+        // ... (código do caos chegando a 100 e disparando a briga) ...
+
+        // 1. CHECAGEM DE DERROTA POR DESTRUIÇÃO
+        if (this.taverna.getVida() <= 0) {
+            this.taverna.registrarEvento("💀 GAME OVER! Sua taverna foi reduzida a escombros pelas brigas!");
+            this.jogoRodando = false; // Encerra o jogo
+        } 
+        
+        // 2. CHECAGEM DE DERROTA POR FALÊNCIA
+        else if (this.taverna.getDinheiroNoCaixa() < 0) {
+            this.taverna.registrarEvento("💸 GAME OVER! Você faliu e os guardas confiscaram o local.");
+            this.jogoRodando = false; // Encerra o jogo
         }
     }
 

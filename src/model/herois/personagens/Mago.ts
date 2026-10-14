@@ -8,7 +8,6 @@ export class Mago extends Heroi {
     }
 
     public override reagirABriga(taverna: Taverna): void {
-        this.paciencia -= 50;
         if (this.paciencia < 0) this.paciencia = 0;
         taverna.registrarEvento(`O ${this.nome} ficou assustado e perdeu 50 de paciência.`);
     }

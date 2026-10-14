@@ -1,6 +1,7 @@
 import { Taverna } from "../Taverna";
+import { ItemConsumivel } from "../itens/ItemConsumivel";
 
-export abstract class Heroi{
+export class Heroi{
     protected nome: string;
     protected ouro: number;
     protected paciencia: number;
@@ -25,6 +26,19 @@ export abstract class Heroi{
         return this.ouro;
     }
 
+    public aumentarPaciencia(valor: number): void{
+        this.paciencia += valor;
+    }
+
+    public diminuirPaciencia(valor: number): void{
+        this.paciencia -= valor;
+        if (this.paciencia < 0) this.paciencia = 0;
+    }
+
+    public aumentarBebado(valor: number): void{
+        this.quantBebado += valor;
+    }
+
     public aguardarFila(): void{
         this.paciencia -= 10;
         if (this.paciencia < 0) this.paciencia = 0;
@@ -35,12 +49,24 @@ export abstract class Heroi{
             this.ouro -= valor;
             return true;
         }
-        return false; // Calote
+        return false;
     }
+    
     public ganharDinheiro(valor: number): void {
         this.ouro += valor;
         if (this.ouro < 0) this.ouro = 0;
     }
-    public abstract reagirABriga(taverna: Taverna): void; //Todo herói DEVE saber reagir a uma briga, 
-    // mas CADA UM faz isso do seu jeito assim estou usando o polimorfismo
-}
+
+//sobreescrita asqui
+    public reagirABriga(taverna: Taverna): void {
+           this.diminuirPaciencia(Math.floor(Math.random() * 11) + 5);
+           taverna.alterarCaos(5);
+    }
+//injecao de dependencia aqui
+    public consumir(item: ItemConsumivel, taverna: Taverna): void {
+        item.aplicarEfeito(this, taverna); 
+    }
+
+    
+
+    }

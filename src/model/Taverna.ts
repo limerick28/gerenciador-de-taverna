@@ -17,23 +17,23 @@ export class Taverna {
     }
 
     //getters e setters
-    public get nomeTaverna(): string {
+    public getNomeTaverna(): string {
         return this.nome;
     }
 
-    public get dinheiroNoCaixa(): number {
+    public getDinheiroNoCaixa(): number {
         return this.caixa;
     }
 
-    public get vida(): number {
+    public getVida(): number {
         return this.vidaDoPilar;
     }
 
-    public get caos(): number {
+    public getCaos(): number {
         return this.nivelDeCaos;
     }
 
-    public get turno(): number {
+    public getturno(): number {
         return this.turnoAtual;
     }
         

@@ -6,9 +6,12 @@ export class Goblin extends Heroi {
         super(nome, 100, 35);
     }
 
+//sobreescrita
     public override reagirABriga(taverna: Taverna): void {
-        this.paciencia = 0;
+        super.reagirABriga(taverna);
+        
         taverna.perderDinheiro(6);
+
         taverna.registrarEvento(`O ${this.nome} ficou nervoso e roubou 6 de ouro da taverna.`);
     }
 }    
