@@ -1,3 +1,4 @@
+import { Heroi } from './herois/Heroi';
 export class Taverna {
     private nome: string;
     private caixa: number;
@@ -5,6 +6,8 @@ export class Taverna {
     private nivelDeCaos: number;
     private turnoAtual: number;
     private logTurno: string[];
+    public filaBalcao: Heroi[] = [];
+    private limiteBalcao: number = 4;
 
     constructor(nome: string) {
         this.nome = nome;
@@ -13,7 +16,6 @@ export class Taverna {
         this.nivelDeCaos = 0;
         this.turnoAtual = 1;
         this.logTurno = [];
-
     }
 
     //getters e setters
@@ -25,7 +27,7 @@ export class Taverna {
         return this.caixa;
     }
 
-    public getVida(): number {
+    public getVidaAtual(): number {
         return this.vidaDoPilar;
     }
 
@@ -33,16 +35,30 @@ export class Taverna {
         return this.nivelDeCaos;
     }
 
-    public getturno(): number {
+    public getTurno(): number {
         return this.turnoAtual;
     }
         
     public passarTurno(): void {
         this.turnoAtual++;
         this.alterarCaos(5);
+        for (let i = this.filaBalcao.length - 1; i >= 0; i--) {
+            const cliente = this.filaBalcao[i];.diminuirPaciencia(10); 
+
+            // Checagem: O cliente surtou?
+            if (cliente.paciencia <= 0) {
+                // Penalidade para o jogador
+                this.alterarCaos(20); 
+                
+                // Registra na fofoca do turno
+                this.registrarEvento(`😡 O ${cliente.nome} cansou de esperar, xingou todo mundo e foi embora!`);
+                
+                // Remove esse cliente exato da fila (Tira 1 elemento na posição 'i')
+                this.filaBalcao.splice(i, 1); 
+            }
     }
 
-    public receberPagamento(valor: number): void{
+    public receberDinheiro(valor: number): void{
         if(valor > 0)
             this.caixa += valor;
     }

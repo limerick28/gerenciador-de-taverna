@@ -9,6 +9,6 @@ const view = new MainScreen_1.Mainscreen();
 const nomeEscolhido = view.pedirNomeTaverna();
 // 3. Constrói o estado do jogo (Model)
 const taverna = new Taverna_1.Taverna(nomeEscolhido);
-// 4. coloca a Taverna e a View no Controlador e dá o play
+// 4    . coloca a Taverna e a View no Controlador e dá o play
 const controller = new GameController_1.GameController(taverna, view);
 controller.iniciar();

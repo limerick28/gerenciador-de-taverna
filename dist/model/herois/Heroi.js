@@ -17,6 +17,17 @@ class Heroi {
     getDinheiro() {
         return this.ouro;
     }
+    aumentarPaciencia(valor) {
+        this.paciencia += valor;
+    }
+    diminuirPaciencia(valor) {
+        this.paciencia -= valor;
+        if (this.paciencia < 0)
+            this.paciencia = 0;
+    }
+    aumentarBebado(valor) {
+        this.quantBebado += valor;
+    }
     aguardarFila() {
         this.paciencia -= 10;
         if (this.paciencia < 0)
@@ -27,7 +38,21 @@ class Heroi {
             this.ouro -= valor;
             return true;
         }
-        return false; // Calote
+        return false;
+    }
+    ganharDinheiro(valor) {
+        this.ouro += valor;
+        if (this.ouro < 0)
+            this.ouro = 0;
+    }
+    //sobreescrita asqui
+    reagirABriga(taverna) {
+        this.diminuirPaciencia(Math.floor(Math.random() * 11) + 5);
+        taverna.alterarCaos(5);
+    }
+    //injecao de dependencia aqui
+    consumir(item, taverna) {
+        item.aplicarEfeito(this, taverna);
     }
 }
 exports.Heroi = Heroi;

@@ -8,28 +8,29 @@ class Taverna {
         this.vidaDoPilar = 100;
         this.nivelDeCaos = 0;
         this.turnoAtual = 1;
+        this.logTurno = [];
     }
     //getters e setters
-    get nomeTaverna() {
+    getNomeTaverna() {
         return this.nome;
     }
-    get dinheiroNoCaixa() {
+    getDinheiroNoCaixa() {
         return this.caixa;
     }
-    get vida() {
+    getVidaAtual() {
         return this.vidaDoPilar;
     }
-    get caos() {
+    getCaos() {
         return this.nivelDeCaos;
     }
-    get turno() {
+    getTurno() {
         return this.turnoAtual;
     }
     passarTurno() {
         this.turnoAtual++;
         this.alterarCaos(5);
     }
-    receberPagamento(valor) {
+    receberDinheiro(valor) {
         if (valor > 0)
             this.caixa += valor;
     }
@@ -38,10 +39,16 @@ class Taverna {
         if (this.caixa < 0)
             this.caixa = 0;
     }
-    sofrerDano(dano) {
+    sofrerDano(dano, causador) {
         this.vidaDoPilar -= dano;
         if (this.vidaDoPilar < 0)
             this.vidaDoPilar = 0;
+        if (causador) {
+            this.registrarEvento(`--DANO! A taverna sofreu ${dano} de dano por ${causador}!--\n`);
+        }
+        else {
+            this.registrarEvento(`--DANO! A taverna sofreu ${dano} de dano na estrutura!--\n`);
+        }
     }
     alterarCaos(valor) {
         this.nivelDeCaos += valor;
@@ -52,6 +59,14 @@ class Taverna {
     }
     estaAberta() {
         return this.vidaDoPilar > 0;
+    }
+    registrarEvento(mensagem) {
+        this.logTurno.push(mensagem + "\n");
+    }
+    lerELimparLog() {
+        const historico = [...this.logTurno];
+        this.logTurno = [];
+        return historico;
     }
 }
 exports.Taverna = Taverna;

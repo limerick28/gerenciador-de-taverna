@@ -3,7 +3,7 @@ import { Taverna } from '../../Taverna';
 
 export class Goblin extends Heroi {
     constructor(nome: string = "Goblin") {
-        super(nome, 100, 35);
+        super(nome, 50, 20);
     }
 
 //sobreescrita
@@ -12,6 +12,10 @@ export class Goblin extends Heroi {
         
         taverna.perderDinheiro(6);
 
-        taverna.registrarEvento(`O ${this.nome} ficou nervoso e roubou 6 de ouro da taverna.`);
+        taverna.registrarEvento(`O ${this.nome} ficou nervoso e roubou 6 de ouro do caixa da taverna.`);
+    }
+
+    public perderPaciencia(): void {
+        super.diminuirPaciencia(6);
     }
 }    

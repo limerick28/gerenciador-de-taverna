@@ -2,14 +2,21 @@ import { ItemConsumivel } from "../ItemConsumivel";
 import { Heroi } from "../../herois/Heroi";
 import { Taverna } from "../../Taverna";
 
-export class CervejaDoAnao extends ItemConsumivel {
-    constructor() {
-        super("Cerveja do Anão", 10);
+export class Cerveja implements ItemConsumivel {
+    private nome: string = "Cerveja do Anão";
+    private preco: number = 5;
+
+    public getNome(): string {
+        return this.nome;
     }
+
     
-    public override aplicarEfeito(heroi: Heroi, taverna: Taverna): void {
+    public getPreco(): number {
+        return this.preco;
+    }
+
+    public aplicarEfeito(heroi: Heroi, taverna: Taverna): void {
         heroi.aumentarPaciencia(20);
-        heroi.aumentarBebado(4); 
-        taverna.registrarEvento(`O ${heroi.getNomeHeroi()} bebeu uma Cerveja do Anão e aumentou sua paciência em 20.`);
-    }    
+        taverna.registrarEvento(` ${heroi.getNomeHeroi()} bebeu uma ${this.nome} e relaxou.`);
+    }
 }
